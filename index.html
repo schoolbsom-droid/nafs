@@ -5,99 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>اختبار محاكي لنافس - رياضيات</title>
     <style>
-        :root {
-            --primary-sky: #00aeef;
-            --soft-bg: #f0faff;
-            --card-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--soft-bg);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            color: #333;
-        }
-
-        .container {
-            width: 95%;
-            max-width: 500px;
-            background: white;
-            padding: 20px;
-            margin: 10px;
-            border-radius: 15px;
-            box-shadow: var(--card-shadow);
-        }
-
-        header {
-            text-align: center;
-            border-bottom: 2px solid var(--primary-sky);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
+        :root { --primary-sky: #00aeef; --soft-bg: #f0faff; --card-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--soft-bg); margin: 0; display: flex; justify-content: center; min-height: 100vh; color: #333; }
+        .container { width: 95%; max-width: 500px; background: white; padding: 20px; margin: 10px; border-radius: 15px; box-shadow: var(--card-shadow); }
+        header { text-align: center; border-bottom: 2px solid var(--primary-sky); padding-bottom: 10px; margin-bottom: 20px; }
         header h1 { font-size: 1.2rem; color: var(--primary-sky); margin: 5px 0; }
         header h2 { font-size: 0.9rem; margin: 5px 0; color: #555; }
-        .names-line {
-            font-size: 0.7rem; 
-            color: #777;
-            display: block;
-            margin-top: 5px;
-            border-top: 1px dashed #eee;
-            padding-top: 5px;
-            white-space: nowrap; /* بقاء الأسماء في سطر واحد للجوال */
-        }
-
+        .names-line { font-size: 0.7rem; color: #777; display: block; margin-top: 5px; border-top: 1px dashed #eee; padding-top: 5px; white-space: nowrap; }
         .input-group { margin: 30px 0; text-align: center; }
-        input[type="text"] {
-            width: 85%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            text-align: center;
-            outline-color: var(--primary-sky);
-        }
-
-        .option-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            background: white;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: 0.2s;
-            text-align: right;
-        }
+        input[type="text"] { width: 85%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; text-align: center; outline-color: var(--primary-sky); }
+        .option-btn { display: block; width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #e0e0e0; border-radius: 10px; background: white; cursor: pointer; font-size: 1rem; transition: 0.2s; text-align: right; }
         .option-btn:active { background-color: #e3f2fd; }
-
         .hidden { display: none; }
-        
-        .btn-main {
-            background-color: var(--primary-sky);
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .review-box {
-            text-align: right;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
+        .btn-main { background-color: var(--primary-sky); color: white; border: none; padding: 15px 25px; border-radius: 8px; font-size: 1.1rem; cursor: pointer; width: 100%; }
+        .review-box { text-align: right; margin-top: 15px; font-size: 0.9rem; border-bottom: 1px solid #eee; padding-bottom: 10px; }
         .correct-text { color: #2e7d32; font-weight: bold; }
         .wrong-text { color: #d32f2f; font-weight: bold; }
-        
         #loading-msg { color: var(--primary-sky); font-weight: bold; margin-top: 20px; text-align: center;}
     </style>
 </head>
@@ -129,15 +52,15 @@
     <div id="result-screen" class="hidden">
         <h2 style="text-align: center; color: var(--primary-sky);">تم الانتهاء!</h2>
         <div id="score-display" style="font-size: 1.6rem; text-align: center; font-weight: bold; margin: 15px 0;"></div>
-        <div id="loading-msg">جاري حفظ النتيجة في سجلات المعلمة...</div>
+        <div id="loading-msg">جاري حفظ النتيجة وتحليل الإجابات...</div>
         <div id="review-list"></div>
-        <button class="btn-main" id="retry-btn" style="margin-top: 20px;" onclick="location.reload()">إجراء محاولة أخرى</button>
+        <button class="btn-main" style="margin-top: 20px;" onclick="location.reload()">إجراء محاولة أخرى</button>
     </div>
 </div>
 
 <script>
-    // الرابط الخاص بكِ تم وضعه هنا بنجاح
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY0OsQfyJt_tdi_EkXmHROTPygtEebAW1TCX61azLWHMo02-UCfnRk43nbVTgiZY8qUQ/exec"; 
+    // الرابط المحدث الذي زودتني به
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwaV9N8h7TImzO68FnC4yMU3L5WtfYebZy7n7BgRLDltp5t3EpyAWshTKqCBFCE4ivHqw/exec"; 
 
     const questions = [
         { q: "الكسر العشري المكافئ للكسر 13/5 هو:", options: ["2,4", "2,45", "2,55", "2,6"], correct: 3 },
@@ -163,16 +86,14 @@
     ];
 
     let currentIdx = 0, score = 0, studentName = "", userChoices = [];
-    let attempts = parseInt(localStorage.getItem("nafes_math_attempts_final") || "0");
-    document.getElementById("attempts-info").innerText = `محاولاتكِ المستخدمة: ${attempts} من 3`;
+    let attempts = parseInt(localStorage.getItem("nafes_math_v2") || "0");
+    document.getElementById("attempts-info").innerText = `محاولاتكِ: ${attempts} من 3`;
 
-    if (attempts >= 3) {
-        document.getElementById("start-screen").innerHTML = "<p style='color:red; font-weight:bold;'>لقد استنفدتِ المحاولات الثلاث المتاحة لهذا الجهاز.</p>";
-    }
+    if (attempts >= 3) { document.getElementById("start-screen").innerHTML = "<p style='color:red;'>عذراً، استنفدتِ المحاولات الثلاث.</p>"; }
 
     function startQuiz() {
         studentName = document.getElementById("student-name").value.trim();
-        if (studentName.length < 5) { return alert("فضلاً أدخلي اسمكِ الثلاثي للبدء"); }
+        if (studentName.length < 5) return alert("فضلاً أدخلي اسمكِ الثلاثي");
         document.getElementById("start-screen").classList.add("hidden");
         document.getElementById("quiz-screen").classList.remove("hidden");
         showQuestion();
@@ -189,9 +110,8 @@
             btn.className = "option-btn";
             btn.innerText = opt;
             btn.onclick = () => { 
-                userChoices.push({q: q.q, selected: opt, correct: q.options[q.correct], isCorrect: i === q.correct}); 
-                if(i === q.correct) score++; 
-                currentIdx++; 
+                userChoices.push({selected: opt, correct: q.options[q.correct], q: q.q, isCorrect: i === q.correct}); 
+                if(i === q.correct) score++; currentIdx++; 
                 if(currentIdx < questions.length) showQuestion(); else finishQuiz(); 
             };
             container.appendChild(btn);
@@ -201,39 +121,29 @@
     function finishQuiz() {
         document.getElementById("quiz-screen").classList.add("hidden");
         document.getElementById("result-screen").classList.remove("hidden");
-        document.getElementById("score-display").innerText = `درجتكِ هي: ${score} من 20`;
-        
-        attempts++;
-        localStorage.setItem("nafes_math_attempts_final", attempts);
+        document.getElementById("score-display").innerText = `درجتكِ: ${score} من 20`;
+        attempts++; localStorage.setItem("nafes_math_v2", attempts);
 
-        fetch(SCRIPT_URL, { 
-            method: "POST", 
-            mode: "no-cors", 
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({studentName: studentName, score: score}) 
-        }).then(() => { 
-            document.getElementById("loading-msg").innerText = "✅ تم حفظ نتيجتك في سجلات أ. شهرة بنجاح!";
-            showReview();
-        }).catch(() => {
-            document.getElementById("loading-msg").innerText = "⚠️ لم يتم الاتصال بالسجل، لكن درجتكِ ظهرت أمامكِ.";
+        const payload = { studentName: studentName, score: score, details: userChoices };
+
+        fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) })
+        .then(() => { 
+            document.getElementById("loading-msg").innerText = "✅ تم حفظ نتيجتك وتحليل إجاباتك بنجاح!";
             showReview();
         });
     }
 
     function showReview() {
-        let reviewHTML = "<hr><h3>مراجعة شاملة لإجاباتك:</h3>";
+        let reviewHTML = "<hr><h3>مراجعة شاملة:</h3>";
         userChoices.forEach((item, idx) => {
             reviewHTML += `<div class="review-box">
                 <strong>س${idx+1}:</strong> ${item.q}<br>
-                <span class="${item.isCorrect ? 'correct-text' : 'wrong-text'}">
-                    إجابتك: ${item.selected} ${item.isCorrect ? '✅' : '❌'}
-                </span>
-                ${!item.isCorrect ? `<br><small style="color:#555">الإجابة الصحيحة: ${item.correct}</small>` : ''}
+                <span class="${item.isCorrect ? 'correct-text' : 'wrong-text'}">إجابتك: ${item.selected} ${item.isCorrect ? '✅' : '❌'}</span>
+                ${!item.isCorrect ? `<br><small>الصح: ${item.correct}</small>` : ''}
             </div>`;
         });
         document.getElementById("review-list").innerHTML = reviewHTML;
     }
 </script>
-
 </body>
 </html>
